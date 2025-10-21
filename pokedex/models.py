@@ -10,7 +10,12 @@ class Pokemon(models.Model):
         return self.name
     
     
-    ##Trainer
-    #name
-    #Age
-    #level
+class Trainer(models.Model):
+    nametrainer = models.CharField(max_length=30, null=False)
+    lastname = models.CharField(max_length=30, null=False)
+    level = models.IntegerField(null=False)
+    birthday = models.DateField(null=False)
+    def __str__(self):
+        return self.nametrainer
+        
+    

@@ -17,6 +17,19 @@
                 </li>
                 {% endfor %}
             </ul>
+        
+        <div class="trainer">
+            <div class="text-black p-4">
+                <h1>Entrenadores</h1>
+            </div>
+            <ul class="Entrenadores">
+                {% for trainer in trainers %}
+                <li class="list-group-item">
+                    <a href="trainer/{{trainer.id}}">{{ trainer | capfirst }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            
         </div>
     </body>
 </html>
