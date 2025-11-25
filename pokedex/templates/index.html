@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
+
 {% block content %}
   <p class="p-2">Hola, este es tu primer sitio en Django</p>
 
   <h3>Pokemons </h3>
- <a href="{% url 'pokedex:create' %}">Agregar Pokémon</a>
+  <a href="{% url 'pokedex:create' %}">Agregar Pokémon</a>
   <div class="row">
     {% for pokemon in pokemons %}
       <div class="col-sm-12 col-md-6 col-lg-4">
-        <a class="card" style="width: 18rem;" href="{% url 'pokemon' pokemon.id %}">
+        <a class="card" style="width: 18rem;" href="{% url 'pokedex:pokemon' pokemon.id %}">
           {% if pokemon.picture %}
             <img src="{{ pokemon.picture.url }}" class="card-img-top" alt="{{ pokemon.name }}">
           {% endif %}
           <div class="card-body">
             <p class="card-text">{{ pokemon.name|capfirst }}</p>
+            <a href="{{pokemon.id}}" class="btn btn-primary">
+              <i class="fa-solid fa-eye"></i>
+            </a>
+          <a href="edit_pokemon{{pokemon.id}}" class="btn btn-primary">
+              <i class="fa-solid fa-eye"></i>
+          </a>
           </div>
         </a>
       </div>
@@ -25,21 +32,19 @@
   <div class="row">
     {% for trainer in trainers %}
       <div class="col-sm-12 col-md-6 col-lg-4">
-        <a class="card" style="width: 18rem;" href="{% url 'trainer' trainer.id %}">
+        <a class="card" style="width: 18rem;" href="{% url 'pokedex:trainer' trainer.id %}">
           {% if trainer.picture %}
             <img src="{{ trainer.picture.url }}" class="card-img-top" alt="{{ trainer.name }}">
           {% endif %}
           <div class="card-body">
-            <p class="card-text">{{ trainer.nametrainer|capfirst }} {{ trainer.lastname|capfirst }}
-</p>
+            <p class="card-text">
+              {{ trainer.nametrainer|capfirst }} {{ trainer.lastname|capfirst }}
+            </p>
           </div>
         </a>
       </div>
     {% endfor %}
   </div>
 {% endblock %}
-
-
- 
             
 

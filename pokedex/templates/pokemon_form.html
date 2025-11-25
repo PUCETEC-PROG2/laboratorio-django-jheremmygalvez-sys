@@ -7,5 +7,6 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Guardar</button>
+        <a href="{% url "pokedex:index" %}" class="btn btn-secondary">Regresar</a>
     </form>
-{% endblock content %}1
+{% endblock content %}
