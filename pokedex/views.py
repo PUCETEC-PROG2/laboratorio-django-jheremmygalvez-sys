@@ -1,30 +1,36 @@
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import render, redirect
 from .models import Pokemon, Trainer
+from .forms import PokemonForm
 
 def index(request):
     pokemons = Pokemon.objects.all()
     trainers = Trainer.objects.all()
     template = loader.get_template('index.html')
     return HttpResponse(template.render({
-        'pokemons': pokemons, 
+        'pokemons': pokemons,
         'trainers': trainers
-
-        
-        }, request))
+    }, request))
 
 def pokemon(request, id: int):
     pokemon = Pokemon.objects.get(id=id)
     template = loader.get_template('display_pokemon.html')
-    context = {
-        'pokemon': pokemon
-    }
+    context = {'pokemon': pokemon}
     return HttpResponse(template.render(context, request))
 
 def trainer(request, id: int):
     trainer = Trainer.objects.get(id=id)
     template = loader.get_template('display_trainer.html')
-    context = {
-        'trainer': trainer
-    }
+    context = {'trainer': trainer}
     return HttpResponse(template.render(context, request))
+
+def create(request):
+    if request.method == "POST":
+        form = PokemonForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index')  # redirige a la página principal
+    else:
+        form = PokemonForm()
+    return render(request, 'pokemon_form.html', {'form': form})

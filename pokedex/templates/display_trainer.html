@@ -9,7 +9,7 @@
             <div class="bg-primary text-white p-4 text-center">
                 <h1>Mi Pokedex</h1>
             </div>
-            <p>Has elegido el siguiente entrenador: <strong>{{ trainer | capfirst }}</strong></p>
+            <p>Has elegido el siguiente entrenador: <strong>{{ trainer.nametrainer|capfirst }} {{ trainer.lastname|capfirst }}</strong></p>
             <h3>Caracteristicas</h3> 
             <ul>
                 <li>Nombre: {{ trainer.nametrainer }}</li>

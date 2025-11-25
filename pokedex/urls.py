@@ -1,9 +1,11 @@
 from django.urls import path
-
 from . import views
+
+app_name = "pokedex"   
 
 urlpatterns = [
     path("", views.index, name="index"),
     path("pokemon/<int:id>/", views.pokemon, name="pokemon"),
-    path("trainer/<int:id>", views.trainer, name="trainer")
+    path("trainer/<int:id>/", views.trainer, name="trainer"),
+    path("create/", views.create, name="create"),  
 ]
