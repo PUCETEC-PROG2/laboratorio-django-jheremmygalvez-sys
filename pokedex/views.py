@@ -3,6 +3,11 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from oauth2_provider.contrib.rest_framework import TokenHasScope, OAuth2Authentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import viewsets
+from .models import Pokemon, Trainer
+from .serializers import PokemonSerializer, TrainerSerializer
 
 from .models import Pokemon, Trainer
 from .forms import PokemonForm
@@ -64,4 +69,13 @@ def delete_pokemon(request, id: int):
 
 class CustomLoginView(LoginView):
     template_name = 'login_form.html'
+
     
+
+class PokemonViewSet(viewsets.ModelViewSet):
+    queryset = Pokemon.objects.all()
+    serializer_class = PokemonSerializer
+
+class TrainerViewSet(viewsets.ModelViewSet):
+    queryset = Trainer.objects.all()
+    serializer_class = TrainerSerializer

@@ -3,9 +3,8 @@
 {% block title %}Formulario de Pokemon{% endblock title %}
 
 {% block content %}
-    <form method="post" 
+    <form method="post">
         {% csrf_token %}
-        
         <div class="row d-flex  justify-content-center">
             <div class="col-6">
                 <div>
@@ -18,13 +17,8 @@
                 </div>
                 <br>
                 <button type="submit " class="btn btn-primary">Ingresar</button>
-                <a href="{% url "pokedex:index " %}" class="btn btn-primary">Regresar</a>
+                <a href="{% url "pokedex:index" %}" class="btn btn-primary">Regresar</a>
             </div>
-        
-
-        
-        
         </div>
-        
     </form>
 {% endblock content %}
