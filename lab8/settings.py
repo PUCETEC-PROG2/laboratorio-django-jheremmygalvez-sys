@@ -122,10 +122,10 @@ STATIC_URL = 'static/'
 # causes Django internals that call .startswith(...) on the URL to fail with
 # AttributeError: 'WindowsPath' object has no attribute 'startswith'.
 MEDIA_URL = '/media/'
-# Filesystem location where media files are stored. Use string for compatibility.
-MEDIA_ROOT = str(BASE_DIR / 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
+LOGIN_URL = 'pokedex:login'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

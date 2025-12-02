@@ -17,6 +17,7 @@ class Pokemon(models.Model):
     weight = models.IntegerField(null=False)
     height = models.IntegerField(null=False)
     picture = models.ImageField(upload_to='trainer_pictures/', null=True, blank=True)
+    
     def __str__(self):
         return self.name
     
