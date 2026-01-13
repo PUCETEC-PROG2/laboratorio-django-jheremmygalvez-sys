@@ -49,6 +49,17 @@ def create(request):
     return render(request, 'pokemon_form.html', {'form': form})
 
 @login_required
+def create_trainer(request):
+    if request.method == "POST":
+        form = TrainerForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('pokedex:index')  
+    else:
+        form = TrainerForm()
+    return render(request, 'trainer_form.html', {'form': form})
+
+@login_required
 def edit_pokemon(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
     if request.method == 'POST':

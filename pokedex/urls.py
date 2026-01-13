@@ -13,6 +13,7 @@ urlpatterns = [
     path("pokemon/<int:pokemon_id>/", views.pokemon, name="pokemon"),
     path("trainer/<int:id>/", views.trainer, name="trainer"),
     path("create/", views.create, name="create"),
+    path("create_trainer/", views.create_trainer, name="create_trainer"),
     path("edit_pokemon/<int:pokemon_id>/", views.edit_pokemon, name="edit_pokemon"),
     path("delete_pokemon/<int:pokemon_id>/", views.delete_pokemon, name="delete_pokemon"),
     path("edit_trainer/<int:trainer_id>/", views.edit_trainer, name="edit_trainer"),
