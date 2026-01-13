@@ -10,7 +10,7 @@ from .models import Pokemon, Trainer
 from .serializers import PokemonSerializer, TrainerSerializer
 
 from .models import Pokemon, Trainer
-from .forms import PokemonForm
+from .forms import PokemonForm, TrainerForm
 
 
 def index(request):
@@ -24,14 +24,14 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def pokemon(request, id: int):
-    pokemon = Pokemon.objects.get(id=id)
+def pokemon(request, pokemon_id):
+    pokemon = Pokemon.objects.get(id=pokemon_id)
     template = loader.get_template('display_pokemon.html')
     context = {'pokemon': pokemon}
     return HttpResponse(template.render(context, request))
 
 
-def trainer(request, id: int):
+def trainer(request, id):
     trainer = Trainer.objects.get(id=id)
     template = loader.get_template('display_trainer.html')
     context = {'trainer': trainer}
@@ -55,16 +55,34 @@ def edit_pokemon(request, pokemon_id):
         form = PokemonForm(request.POST, request.FILES, instance=pokemon)
         if form.is_valid():
             form.save()
-            return redirect('pokedex:pokemon', id=pokemon.id)
+            return redirect('pokedex:pokemon', id=pokemon_id)
     else:
         form = PokemonForm(instance=pokemon)
-    return render(request, 'pokedex/edit_pokemon.html', {'form': form, 'pokemon': pokemon})
+    return render(request, 'pokemon_form.html', {'form': form, 'pokemon': pokemon})
 
 
 @login_required
-def delete_pokemon(request, id: int):
-    pokemon = Pokemon.objects.get(id=id)
+def delete_pokemon(request, pokemon_id):
+    pokemon = Pokemon.objects.get(id=pokemon_id)
     pokemon.delete()
+    return redirect('pokedex:index')
+
+@login_required
+def edit_trainer(request, trainer_id):
+    trainer = Trainer.objects.get(id=trainer_id)
+    if request.method == 'POST':
+        form = TrainerForm(request.POST, request.FILES, instance=trainer)
+        if form.is_valid():
+            form.save()
+            return redirect('pokedex:trainer', id=trainer_id)
+    else:
+        form = TrainerForm(instance=trainer)
+    return render(request, 'trainer_form.html', {'form': form, 'trainer': trainer})
+
+@login_required
+def delete_trainer(request, trainer_id):
+    trainer = Trainer.objects.get(id=trainer_id)
+    trainer.delete()
     return redirect('pokedex:index')
 
 class CustomLoginView(LoginView):

@@ -9,27 +9,30 @@
   <div class="row">
     {% for pokemon in pokemons %}
       <div class="col-sm-12 col-md-6 col-lg-4">
-        <a class="card" style="width: 18rem;" href="{% url 'pokedex:pokemon' pokemon.id %}">
+        <div class="card" style="width: 18rem; min-height: 350px;">
+        <div class="card-header text-center bg-light">
+          <h5 class="card-title mb-0">{{ pokemon.name|capfirst }}</h5>
+        </div>
         {% if pokemon.picture %}
           <img src="{{ pokemon.picture.url }}" class="card-img-top" alt="{{ pokemon.name }}">
         {% endif %}
           <div class="card-body">
-            <p class="card-text">{{ pokemon.name|capfirst }}</p>
-            <a href="{{pokemon.id}}" class="btn btn-primary">
-              <i class="fa-solid fa-eye"></i>
-            </a>
+            <p class="card-text">Tipo: {{ pokemon.get_type_display }}</p>
+            <div class="d-flex justify-content-around">
+              <a href="{% url 'pokedex:pokemon' pokemon.id %}" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-eye"></i>
+              </a>
         {% if user.is_authenticated %}
-            <a href="edit_pokemon/{{pokemon.id}}" class="btn btn-primary">
-              <i class="fa-solid fa-pencil"></i>
-        {% endif  %}
-          </a>
-        {% if user.is_authenticated %}
-          <a href="delete_pokemon/{{pokemon.id}}" class="btn btn-danger">
-              <i class="fa-solid fa-trash"></i>
-          </a>
-        {% endif  %}
+              <a href="{% url 'pokedex:edit_pokemon' pokemon.id %}" class="btn btn-warning btn-sm">
+                <i class="fa-solid fa-pencil"></i>
+              </a>
+              <a href="{% url 'pokedex:delete_pokemon' pokemon.id %}" class="btn btn-danger btn-sm">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+        {% endif %}
+            </div>
           </div>
-        </a>
+        </div>
       </div>
     {% endfor %}
   </div>
@@ -40,16 +43,30 @@
   <div class="row">
     {% for trainer in trainers %}
       <div class="col-sm-12 col-md-6 col-lg-4">
-        <a class="card" style="width: 18rem;" href="{% url 'pokedex:trainer' trainer.id %}">
+        <div class="card" style="width: 18rem; min-height: 350px;">
+        <div class="card-header text-center bg-light">
+          <h5 class="card-title mb-0">{{ trainer.nametrainer|capfirst }} {{ trainer.lastname|capfirst }}</h5>
+        </div>
           {% if trainer.picture %}
-            <img src="{{ trainer.picture.url }}" class="card-img-top" alt="{{ trainer.name }}">
+            <img src="{{ trainer.picture.url }}" class="card-img-top" alt="{{ trainer.nametrainer }}">
           {% endif %}
           <div class="card-body">
-            <p class="card-text">
-              {{ trainer.nametrainer|capfirst }} {{ trainer.lastname|capfirst }}
-            </p>
+            <p class="card-text">Nivel: {{ trainer.level }}</p>
+            <div class="d-flex justify-content-around">
+              <a href="{% url 'pokedex:trainer' trainer.id %}" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-eye"></i>
+              </a>
+        {% if user.is_authenticated %}
+              <a href="{% url 'pokedex:edit_trainer' trainer.id %}" class="btn btn-warning btn-sm">
+                <i class="fa-solid fa-pencil"></i>
+              </a>
+              <a href="{% url 'pokedex:delete_trainer' trainer.id %}" class="btn btn-danger btn-sm">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+        {% endif %}
+            </div>
           </div>
-        </a>
+        </div>
       </div>
     {% endfor %}
   </div>
